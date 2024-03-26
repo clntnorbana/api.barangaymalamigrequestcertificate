@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const uploadMiddleware_1 = __importDefault(require("../middlewares/uploadMiddleware"));
+const create_1 = __importDefault(require("../controllers/resident/create"));
+const update_1 = __importDefault(require("../controllers/resident/update"));
+const delete_1 = __importDefault(require("../controllers/resident/delete"));
+const authMiddleware_1 = require("../middlewares/authMiddleware");
+const getProfileId_1 = __importDefault(require("../controllers/resident/getProfileId"));
+const get_1 = require("../controllers/resident/get");
+const router = (0, express_1.Router)();
+router.get("/get_residents", get_1.getResidents);
+router.get("/get_resident/:profile_id", get_1.getResident);
+router.post("/register", uploadMiddleware_1.default.single("img"), create_1.default);
+router.put("/update/:profile_id", uploadMiddleware_1.default.single("img"), authMiddleware_1.requireAuth, update_1.default);
+router.delete("/delete/:profile_id", authMiddleware_1.requireAuth, delete_1.default);
+router.post("/get_forgotten_profileId", getProfileId_1.default);
+exports.default = router;

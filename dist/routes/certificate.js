@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const get_1 = require("../controllers/certificate/get");
+const create_1 = __importDefault(require("../controllers/certificate/create"));
+const uploadMiddleware_1 = __importDefault(require("../middlewares/uploadMiddleware"));
+const delete_1 = __importDefault(require("../controllers/certificate/delete"));
+const authMiddleware_1 = require("../middlewares/authMiddleware");
+const update_1 = require("../controllers/certificate/update");
+const router = (0, express_1.Router)();
+router.get("/get_requests", get_1.getRequestCertificates);
+router.get("/get_request/:transaction_id", get_1.getRequestCertificate);
+router.post("/request_certificate", uploadMiddleware_1.default.array("img", 4), create_1.default);
+router.delete("/delete_request/:transaction_id", authMiddleware_1.requireAuth, delete_1.default);
+router.put("/approve_request/:transaction_id", authMiddleware_1.requireAuth, update_1.approveRequest);
+router.put("/reject_request/:transaction_id", authMiddleware_1.requireAuth, update_1.rejectRequest);
+router.put("/undo_reject/:transaction_id", authMiddleware_1.requireAuth, update_1.undoReject);
+router.put("/update_purpose/:transaction_id", authMiddleware_1.requireAuth, update_1.updatePurpose);
+exports.default = router;

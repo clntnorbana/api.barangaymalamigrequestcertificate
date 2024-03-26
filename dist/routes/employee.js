@@ -1,0 +1,26 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const create_1 = __importDefault(require("../controllers/employee/create"));
+const uploadMiddleware_1 = __importDefault(require("../middlewares/uploadMiddleware"));
+const update_1 = require("../controllers/employee/update");
+const delete_1 = require("../controllers/employee/delete");
+const login_1 = __importDefault(require("../controllers/employee/login"));
+const logout_1 = __importDefault(require("../controllers/employee/logout"));
+const authMiddleware_1 = require("../middlewares/authMiddleware");
+const get_1 = require("../controllers/employee/get");
+const router = (0, express_1.Router)();
+router.get("/get_employees", get_1.getEmployees);
+router.get("/get_employee/:employee_id", get_1.getEmployee);
+router.post("/create", authMiddleware_1.requireAuth, create_1.default);
+router.post("/login", login_1.default);
+router.post("/logout", logout_1.default);
+router.put("/update_employee/:employee_id", authMiddleware_1.requireAuth, uploadMiddleware_1.default.single("img"), update_1.updateEmployee);
+router.put("/update_password/:employee_id", authMiddleware_1.requireAuth, update_1.updatePassword);
+router.put("/update_role/:employee_id", authMiddleware_1.requireAuth, update_1.updateAdminRole);
+router.delete("/delete_account/:employee_id", authMiddleware_1.requireAuth, delete_1.deleteAccount);
+router.delete("/delete_employee/:employee_id", authMiddleware_1.requireAuth, delete_1.deleteEmployee);
+exports.default = router;
