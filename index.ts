@@ -12,7 +12,7 @@ import recordRoute from "./routes/record";
 const app = express();
 
 const corsOption = {
-  origin: "http://localhost:5173",
+  origin: "frontendcapstone-production.up.railway.app",
   credentials: true,
 };
 
