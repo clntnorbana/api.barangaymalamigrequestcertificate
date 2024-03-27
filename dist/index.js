@@ -1,7 +1,9 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 require("dotenv/config");
@@ -14,8 +16,8 @@ const certificate_1 = __importDefault(require("./routes/certificate"));
 const record_1 = __importDefault(require("./routes/record"));
 const app = (0, express_1.default)();
 const corsOption = {
-    origin: "https://frontendcapstone-production.up.railway.app",
-    credentials: true,
+  origin: "https://frontendcapstone-production.up.railway.app",
+  credentials: true,
 };
 // middlewares
 app.use(express_1.default.json());
@@ -27,7 +29,7 @@ const port = process.env.PORT || 3000;
 (0, database_1.testConnection)();
 // run server
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+  console.log(`Server running on port ${port}`);
 });
 // routes
 app.use("/api/resident", resident_1.default);

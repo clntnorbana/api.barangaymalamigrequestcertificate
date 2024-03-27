@@ -54,7 +54,7 @@ type TRequestCertificate = {
   images?: string[];
 };
 
-type Records = {
+type TRecord = {
   id: string;
   transaction_id: string;
   certificate_type: "indigency" | "barangay clearance";
@@ -72,4 +72,4 @@ type TImages = {
   img_url: string;
 };
 
-export { TResident, TEmployee, TRequestCertificate, TImages, Records };
+export { TResident, TEmployee, TRequestCertificate, TImages, TRecord };
