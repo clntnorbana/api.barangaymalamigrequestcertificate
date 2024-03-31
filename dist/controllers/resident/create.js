@@ -53,7 +53,7 @@ const createResident = async (req, res) => {
             imgUrl = result.public_id;
         }
         // generate id
-        const profileId = (0, generateId_1.default)("PRF");
+        const profileId = (0, generateId_1.default)("P");
         // insert to db
         await database_1.pool.query(`INSERT INTO residents (profile_id, img_url, firstname, lastname, middlename, sex, date_of_birth, place_of_birth, contact_no, email, citizenship, religion, civil_status, company, occupation, number_street, barangay, city, zip_code, voter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
             profileId,

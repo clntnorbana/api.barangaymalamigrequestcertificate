@@ -75,7 +75,7 @@ const createResident = async (req: Request, res: Response) => {
     }
 
     // generate id
-    const profileId = generateId("PRF");
+    const profileId = generateId("P");
 
     // insert to db
     await pool.query(

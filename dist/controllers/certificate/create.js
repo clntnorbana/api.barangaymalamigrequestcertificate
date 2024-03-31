@@ -13,7 +13,7 @@ const createRequest = async (req, res) => {
         let fullName = "";
         let contact_no = "";
         let email = "";
-        const transaction_id = (0, generateId_1.default)("crt");
+        const transaction_id = (0, generateId_1.default)("C");
         const resident = await (0, retrieveResidentQuery_1.retrieveResidentById)(profile_id);
         if (resident) {
             const info = resident[0];

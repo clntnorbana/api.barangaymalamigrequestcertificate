@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // generate random string
 const random = (len) => {
     let result = "";
-    const chars = "qwertyuiopasdfghjklzxcvbnm0123456789";
+    const chars = "QWERTYUIOPASDFGHJKLZXCVBNM0123456789";
     for (let i = 0; i < len; i++) {
         result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
@@ -12,7 +12,7 @@ const random = (len) => {
 // generate id
 const generateId = (pfx) => {
     const currentYr = new Date().getFullYear();
-    const randomStr = random(5);
+    const randomStr = random(7);
     const id = `${pfx}${randomStr}${currentYr}`;
     return id;
 };

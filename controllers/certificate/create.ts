@@ -13,7 +13,7 @@ const createRequest = async (req: Request, res: Response) => {
     let fullName: string = "";
     let contact_no: string = "";
     let email: string | null = "";
-    const transaction_id = generateId("crt");
+    const transaction_id = generateId("C");
 
     const resident = await retrieveResidentById(profile_id);
     if (resident) {
