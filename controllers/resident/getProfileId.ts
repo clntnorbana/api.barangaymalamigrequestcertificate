@@ -29,7 +29,7 @@ const getProfileForgottenProfileId = async (req: Request, res: Response) => {
     const message = `${row[0].firstname} ${row[0].lastname}, (${row[0].profile_id})`;
 
     if (formattedContactNo) {
-      sendSMS(message, "+639694295745");
+      sendSMS(message, "+639066128262");
     }
 
     res.status(200).json({
