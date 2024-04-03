@@ -46,7 +46,7 @@ const approveRequest = async (req: Request, res: Response) => {
       );
 
       // format contact
-      const formattedContactNo: any = formatContactNo("09066128262");
+      const formattedContactNo: any = formatContactNo(requestInfo.contact_no);
       // send sms
       sendSMS(
         `Your request for obtaining certificate of ${requestInfo.certificate_type} has been approved, please download and print the profiling form from the website, and proceed to the barangay to retrieve the document`,
@@ -80,7 +80,7 @@ const rejectRequest = async (req: Request, res: Response) => {
       const requestInfo = request[0] as TRequestCertificate;
 
       // format contact
-      const formattedContactNo: any = formatContactNo("09066128262");
+      const formattedContactNo: any = formatContactNo(requestInfo.contact_no);
       // message
       const defaultMsg = `Your request for obtaining certificate of ${requestInfo.certificate_type} has been rejected, please download and print the profiling form from the website, and proceed to the barangay to retrieve the document`;
 
