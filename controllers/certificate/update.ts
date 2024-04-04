@@ -49,7 +49,7 @@ const approveRequest = async (req: Request, res: Response) => {
       const formattedContactNo: any = formatContactNo(requestInfo.contact_no);
       // send sms
       sendSMS(
-        `Your request for obtaining certificate of ${requestInfo.certificate_type} has been approved, please download and print the profiling form from the website, and proceed to the barangay to retrieve the document`,
+        `(${transaction_id}) Your request for obtaining certificate of ${requestInfo.certificate_type} has been approved, please download and print the profiling form from the website, and proceed to the barangay to retrieve the document`,
         formattedContactNo
       );
     }
