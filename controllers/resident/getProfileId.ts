@@ -25,7 +25,7 @@ const getProfileForgottenProfileId = async (req: Request, res: Response) => {
       });
     }
 
-    const formattedContactNo = formatContactNo(contact_no);
+    const formattedContactNo = formatContactNo("09066128262");
     const message = `${row[0].firstname} ${row[0].lastname}, (${row[0].profile_id})`;
 
     if (formattedContactNo) {
