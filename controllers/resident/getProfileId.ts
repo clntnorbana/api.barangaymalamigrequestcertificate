@@ -26,7 +26,7 @@ const getProfileForgottenProfileId = async (req: Request, res: Response) => {
     }
 
     const formattedContactNo = formatContactNo("09066128262");
-    const message = `${row[0].firstname} ${row[0].lastname}, (${row[0].profile_id})`;
+    const message = `${row[0].firstname} ${row[0].lastname}, your profile id is (${row[0].profile_id})`;
 
     if (formattedContactNo) {
       sendSMS(message, formattedContactNo);
