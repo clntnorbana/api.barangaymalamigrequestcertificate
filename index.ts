@@ -12,7 +12,7 @@ import recordRoute from "./routes/record";
 const app = express();
 
 const corsOption = {
-  origin: "https://frontendcapstone-production.up.railway.app",
+  origin: "https://barangaymalamigrequestcertificate.online",
   credentials: true,
 };
 
