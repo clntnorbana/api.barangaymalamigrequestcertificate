@@ -3,13 +3,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateAdminRole = exports.updatePassword = exports.updateEmployee = void 0;
+exports.changeForgottenPassword = exports.updateAdminRole = exports.updatePassword = exports.updateEmployee = void 0;
 const validator_1 = __importDefault(require("validator"));
 const retrieveEmployeeQuery_1 = require("./template/retrieveEmployeeQuery");
 const encryptPassword_1 = require("../../utils/encryptPassword");
 const deleteEmployeeImg_1 = __importDefault(require("./template/deleteEmployeeImg"));
 const cloudinary_1 = require("../../config/cloudinary");
 const database_1 = require("../../config/database");
+const formatContactNo_1 = __importDefault(require("../../utils/formatContactNo"));
+const generatePassword_1 = __importDefault(require("../../utils/generatePassword"));
+const twilio_1 = __importDefault(require("../../config/twilio"));
 // update information
 const updateEmployee = async (req, res) => {
     try {
@@ -167,3 +170,36 @@ const updateAdminRole = async (req, res) => {
     }
 };
 exports.updateAdminRole = updateAdminRole;
+// change password
+const changeForgottenPassword = async (req, res) => {
+    try {
+        const { employee_id, contact_no } = req.body;
+        // check inputs
+        if (!employee_id || !contact_no) {
+            return res.status(400).json({ message: "Field is required" });
+        }
+        const employee = await (0, retrieveEmployeeQuery_1.retriveEmployeeById)(employee_id);
+        if (!employee || employee.length === 0) {
+            return res.status(400).json({ message: "Employee id do not exists" });
+        }
+        const info = employee[0];
+        // check phone number
+        if (contact_no !== info.contact_no) {
+            return res.status(400).json({ message: "Phone number do not exists" });
+        }
+        const newPassword = (0, generatePassword_1.default)(8);
+        const hashedPassword = await (0, encryptPassword_1.hashPassword)(newPassword);
+        const formattedContactNo = (0, formatContactNo_1.default)(info.contact_no);
+        await database_1.pool.query(`UPDATE employees SET password = ? WHERE employee_id = ?`, [hashedPassword, employee_id]);
+        if (formattedContactNo) {
+            (0, twilio_1.default)(`${info.firstname} ${info.lastname} (${employee_id}), your new password is: ${newPassword}`, formattedContactNo);
+        }
+        res.status(200).json({
+            message: `Your new password has been sent to your phone (${info.contact_no})`,
+        });
+    }
+    catch (error) {
+        return res.status(400).json({ message: error.message });
+    }
+};
+exports.changeForgottenPassword = changeForgottenPassword;

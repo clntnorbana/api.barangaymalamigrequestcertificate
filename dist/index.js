@@ -14,7 +14,8 @@ const certificate_1 = __importDefault(require("./routes/certificate"));
 const record_1 = __importDefault(require("./routes/record"));
 const app = (0, express_1.default)();
 const corsOption = {
-    origin: "https://frontendcapstone-production.up.railway.app",
+    origin: "https://barangaymalamigrequestcertificate.online",
+    // origin: "http://localhost:5174",
     credentials: true,
 };
 // middlewares

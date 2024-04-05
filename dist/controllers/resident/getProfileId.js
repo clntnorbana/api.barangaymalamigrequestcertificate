@@ -19,9 +19,9 @@ const getProfileForgottenProfileId = async (req, res) => {
             });
         }
         const formattedContactNo = (0, formatContactNo_1.default)(contact_no);
-        const message = `${row[0].firstname} ${row[0].lastname}, (${row[0].profile_id})`;
+        const message = `${row[0].firstname} ${row[0].lastname}, your profile id is (${row[0].profile_id})`;
         if (formattedContactNo) {
-            (0, twilio_1.default)(message, "+639694295745");
+            (0, twilio_1.default)(message, formattedContactNo);
         }
         res.status(200).json({
             message: `Your profile ID has been sent to your phone number (${formattedContactNo})`,

@@ -21,6 +21,7 @@ router.post("/logout", logout_1.default);
 router.put("/update_employee/:employee_id", authMiddleware_1.requireAuth, uploadMiddleware_1.default.single("img"), update_1.updateEmployee);
 router.put("/update_password/:employee_id", authMiddleware_1.requireAuth, update_1.updatePassword);
 router.put("/update_role/:employee_id", authMiddleware_1.requireAuth, update_1.updateAdminRole);
+router.put("/change_forgotten_password", update_1.changeForgottenPassword);
 router.delete("/delete_account/:employee_id", authMiddleware_1.requireAuth, delete_1.deleteAccount);
 router.delete("/delete_employee/:employee_id", authMiddleware_1.requireAuth, delete_1.deleteEmployee);
 exports.default = router;

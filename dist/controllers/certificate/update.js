@@ -32,7 +32,7 @@ const approveRequest = async (req, res) => {
             // format contact
             const formattedContactNo = (0, formatContactNo_1.default)(requestInfo.contact_no);
             // send sms
-            (0, twilio_1.default)(`Your request for obtaining certificate of ${requestInfo.certificate_type} has been approved, please download and print the profiling form from the website, and proceed to the barangay to retrieve the document`, formattedContactNo);
+            (0, twilio_1.default)(`(${transaction_id}) Your request for obtaining certificate of ${requestInfo.certificate_type} has been approved, please download and print the profiling form from the website, and proceed to the barangay to retrieve the document`, formattedContactNo);
         }
         res.status(200).json({ message: "request approved" });
     }
@@ -56,7 +56,7 @@ const rejectRequest = async (req, res) => {
             // format contact
             const formattedContactNo = (0, formatContactNo_1.default)(requestInfo.contact_no);
             // message
-            const defaultMsg = `Your request for obtaining certificate of ${requestInfo.certificate_type} has been rejected, please download and print the profiling form from the website, and proceed to the barangay to retrieve the document`;
+            const defaultMsg = `(${transaction_id}) Your request for obtaining certificate of ${requestInfo.certificate_type} has been rejected, due to inaccurate information provided.`;
             // send sms
             (0, twilio_1.default)(remark !== "" ? remark : defaultMsg, formattedContactNo);
         }

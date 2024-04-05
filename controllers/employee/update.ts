@@ -9,6 +9,9 @@ import { comparePassword, hashPassword } from "../../utils/encryptPassword";
 import deletePrevImage from "./template/deleteEmployeeImg";
 import { extractPublicIdFromUrl, uploadResult } from "../../config/cloudinary";
 import { pool } from "../../config/database";
+import formatContactNo from "../../utils/formatContactNo";
+import generatedPassword from "../../utils/generatePassword";
+import sendSMS from "../../config/twilio";
 
 // update information
 const updateEmployee = async (req: Request, res: Response) => {
@@ -210,4 +213,56 @@ const updateAdminRole = async (req: Request, res: Response) => {
   }
 };
 
-export { updateEmployee, updatePassword, updateAdminRole };
+// change password
+const changeForgottenPassword = async (req: Request, res: Response) => {
+  try {
+    const { employee_id, contact_no }: TEmployee = req.body;
+
+    // check inputs
+    if (!employee_id || !contact_no) {
+      return res.status(400).json({ message: "Field is required" });
+    }
+
+    const employee = await retriveEmployeeById(employee_id);
+
+    if (!employee || employee.length === 0) {
+      return res.status(400).json({ message: "Employee id do not exists" });
+    }
+
+    const info = employee[0] as TEmployee;
+
+    // check phone number
+    if (contact_no !== info.contact_no) {
+      return res.status(400).json({ message: "Phone number do not exists" });
+    }
+
+    const newPassword = generatedPassword(8);
+    const hashedPassword = await hashPassword(newPassword);
+    const formattedContactNo = formatContactNo(info.contact_no);
+
+    await pool.query(
+      `UPDATE employees SET password = ? WHERE employee_id = ?`,
+      [hashedPassword, employee_id]
+    );
+
+    if (formattedContactNo) {
+      sendSMS(
+        `${info.firstname} ${info.lastname} (${employee_id}), your new password is: ${newPassword}`,
+        formattedContactNo
+      );
+    }
+
+    res.status(200).json({
+      message: `Your new password has been sent to your phone (${info.contact_no})`,
+    });
+  } catch (error: any) {
+    return res.status(400).json({ message: error.message });
+  }
+};
+
+export {
+  updateEmployee,
+  updatePassword,
+  updateAdminRole,
+  changeForgottenPassword,
+};
