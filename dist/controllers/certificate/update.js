@@ -58,7 +58,9 @@ const rejectRequest = async (req, res) => {
             // message
             const defaultMsg = `(${transaction_id}) Your request for obtaining certificate of ${requestInfo.certificate_type} has been rejected, due to inaccurate information provided.`;
             // send sms
-            (0, twilio_1.default)(remark !== "" ? remark : defaultMsg, formattedContactNo);
+            (0, twilio_1.default)(remark !== ""
+                ? `Your request for obtaining certificate of ${requestInfo.certificate_type} has been rejected, due to ${remark}`
+                : defaultMsg, formattedContactNo);
         }
         res.status(200).json({ message: "request rejected" });
     }
