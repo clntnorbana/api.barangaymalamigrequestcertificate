@@ -13,7 +13,7 @@ const app = express();
 
 const corsOption = {
   origin: "https://barangaymalamigrequestcertificate.online",
-  // origin: "http://localhost:5174",
+  // origin: "http://localhost:5173",
   credentials: true,
 };
 

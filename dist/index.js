@@ -15,7 +15,7 @@ const record_1 = __importDefault(require("./routes/record"));
 const app = (0, express_1.default)();
 const corsOption = {
     origin: "https://barangaymalamigrequestcertificate.online",
-    // origin: "http://localhost:5174",
+    // origin: "http://localhost:5173",
     credentials: true,
 };
 // middlewares

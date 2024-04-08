@@ -68,7 +68,7 @@ const updateResident = async (req: Request, res: Response) => {
           }
 
           // email exists?
-          if (resident.email === email) {
+          if (email && resident.email === email) {
             return res.status(400).json({ message: "Email is already used" });
           }
         }
