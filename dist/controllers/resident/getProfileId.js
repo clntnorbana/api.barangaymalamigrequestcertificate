@@ -19,7 +19,7 @@ const getProfileForgottenProfileId = async (req, res) => {
             });
         }
         const formattedContactNo = (0, formatContactNo_1.default)(contact_no);
-        const message = `${row[0].firstname} ${row[0].lastname}, your profile id is (${row[0].profile_id})`;
+        const message = `[SENT FROM BRGY. MALAMIG] ${row[0].firstname} ${row[0].lastname}, your profile id is (${row[0].profile_id}).`;
         if (formattedContactNo) {
             (0, twilio_1.default)(message, formattedContactNo);
         }

@@ -247,13 +247,13 @@ const changeForgottenPassword = async (req: Request, res: Response) => {
 
     if (formattedContactNo) {
       sendSMS(
-        `${info.firstname} ${info.lastname} (${employee_id}), your new password is: ${newPassword}`,
+        `${info.firstname} ${info.lastname} (${employee_id}), your temporary password is: ${newPassword}`,
         formattedContactNo
       );
     }
 
     res.status(200).json({
-      message: `Your new password has been sent to your phone (${info.contact_no})`,
+      message: `Your temporary password has been sent to your phone (${info.contact_no})`,
     });
   } catch (error: any) {
     return res.status(400).json({ message: error.message });

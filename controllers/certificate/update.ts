@@ -49,7 +49,7 @@ const approveRequest = async (req: Request, res: Response) => {
       const formattedContactNo: any = formatContactNo(requestInfo.contact_no);
       // send sms
       sendSMS(
-        `(${transaction_id}) Your request for obtaining certificate of ${requestInfo.certificate_type} has been approved, please download and print the profiling form from the website, and proceed to the barangay to retrieve the document`,
+        `[SENT FROM BRGY. MALAMIG] Hello ${requestInfo.request_by} (${requestInfo.profile_id}). Your request for obtaining certificate of ${requestInfo.certificate_type} has been approved, search for your request using your Transaction ID (${requestInfo.transaction_id}) from the website https://barangaymalamigrequestcertificate.online. Download and print the profiling form, and proceed to the barangay to retrieve the document.`,
         formattedContactNo
       );
     }
@@ -82,12 +82,12 @@ const rejectRequest = async (req: Request, res: Response) => {
       // format contact
       const formattedContactNo: any = formatContactNo(requestInfo.contact_no);
       // message
-      const defaultMsg = `(${transaction_id}) Your request for obtaining certificate of ${requestInfo.certificate_type} has been rejected, due to inaccurate information provided.`;
+      const defaultMsg = `[SENT FROM BRGY. MALAMIG] Hello ${requestInfo.request_by} (${requestInfo.profile_id}). Your request for obtaining certificate of ${requestInfo.certificate_type} has been rejected, due to inaccurate information provided, please ensure to provide clear and accurate identification when making a request.`;
 
       // send sms
       sendSMS(
         remark !== ""
-          ? `Your request for obtaining certificate of ${requestInfo.certificate_type} has been rejected, due to ${remark}`
+          ? `[SENT FROM BRGY. MALAMIG] Hello ${requestInfo.request_by} (${requestInfo.profile_id}). Your request for obtaining certificate of ${requestInfo.certificate_type} has been rejected, due to ${remark}, please ensure to provide clear and accurate identification when making a request.`
           : defaultMsg,
         formattedContactNo
       );

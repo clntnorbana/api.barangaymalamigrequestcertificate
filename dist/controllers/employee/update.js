@@ -192,10 +192,10 @@ const changeForgottenPassword = async (req, res) => {
         const formattedContactNo = (0, formatContactNo_1.default)(info.contact_no);
         await database_1.pool.query(`UPDATE employees SET password = ? WHERE employee_id = ?`, [hashedPassword, employee_id]);
         if (formattedContactNo) {
-            (0, twilio_1.default)(`${info.firstname} ${info.lastname} (${employee_id}), your new password is: ${newPassword}`, formattedContactNo);
+            (0, twilio_1.default)(`${info.firstname} ${info.lastname} (${employee_id}), your temporary password is: ${newPassword}`, formattedContactNo);
         }
         res.status(200).json({
-            message: `Your new password has been sent to your phone (${info.contact_no})`,
+            message: `Your temporary password has been sent to your phone (${info.contact_no})`,
         });
     }
     catch (error) {
