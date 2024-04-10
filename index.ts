@@ -8,6 +8,7 @@ import residentRoute from "./routes/resident";
 import employeeRoute from "./routes/employee";
 import certificateRoute from "./routes/certificate";
 import recordRoute from "./routes/record";
+import archiveRoute from "./routes/archive";
 
 const app = express();
 
@@ -38,3 +39,4 @@ app.use("/api/resident", residentRoute);
 app.use("/api/employee", employeeRoute);
 app.use("/api/certificate", certificateRoute);
 app.use("/api/record", recordRoute);
+app.use("/api/archive", archiveRoute);

@@ -12,6 +12,7 @@ const resident_1 = __importDefault(require("./routes/resident"));
 const employee_1 = __importDefault(require("./routes/employee"));
 const certificate_1 = __importDefault(require("./routes/certificate"));
 const record_1 = __importDefault(require("./routes/record"));
+const archive_1 = __importDefault(require("./routes/archive"));
 const app = (0, express_1.default)();
 const corsOption = {
     origin: "https://barangaymalamigrequestcertificate.online",
@@ -35,3 +36,4 @@ app.use("/api/resident", resident_1.default);
 app.use("/api/employee", employee_1.default);
 app.use("/api/certificate", certificate_1.default);
 app.use("/api/record", record_1.default);
+app.use("/api/archive", archive_1.default);
