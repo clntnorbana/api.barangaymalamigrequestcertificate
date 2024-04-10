@@ -22,7 +22,9 @@ const createResident = async (req, res) => {
             !civil_status ||
             !number_street ||
             !voter) {
-            return res.status(400).json({ message: "Fill the required fields" });
+            return res
+                .status(400)
+                .json({ message: "STEP 1: Fill the required fields" });
         }
         // check email
         if (email && !validator_1.default.isEmail(email)) {
