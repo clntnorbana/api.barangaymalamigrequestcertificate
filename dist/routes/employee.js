@@ -15,6 +15,7 @@ const get_1 = require("../controllers/employee/get");
 const router = (0, express_1.Router)();
 router.get("/get_employees", get_1.getEmployees);
 router.get("/get_employee/:employee_id", get_1.getEmployee);
+router.get("/get_setting", get_1.getSetting);
 router.post("/create", authMiddleware_1.requireAuth, create_1.default);
 router.post("/login", login_1.default);
 router.post("/logout", logout_1.default);
@@ -22,6 +23,7 @@ router.put("/update_employee/:employee_id", authMiddleware_1.requireAuth, upload
 router.put("/update_password/:employee_id", authMiddleware_1.requireAuth, update_1.updatePassword);
 router.put("/update_role/:employee_id", authMiddleware_1.requireAuth, update_1.updateAdminRole);
 router.put("/change_forgotten_password", update_1.changeForgottenPassword);
+router.put("/update_setting", authMiddleware_1.requireAuth, update_1.updateSetting);
 router.delete("/delete_account/:employee_id", authMiddleware_1.requireAuth, delete_1.deleteAccount);
 router.delete("/delete_employee/:employee_id", authMiddleware_1.requireAuth, delete_1.deleteEmployee);
 exports.default = router;

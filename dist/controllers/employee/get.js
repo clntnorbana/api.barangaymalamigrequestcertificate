@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getEmployee = exports.getEmployees = void 0;
+exports.getSetting = exports.getEmployee = exports.getEmployees = void 0;
 const retrieveEmployeeQuery_1 = require("./template/retrieveEmployeeQuery");
 const retrieveEmployeeQuery_2 = require("./template/retrieveEmployeeQuery");
+const database_1 = require("../../config/database");
 // get all
 const getEmployees = async (req, res) => {
     try {
@@ -26,3 +27,19 @@ const getEmployee = async (req, res) => {
     }
 };
 exports.getEmployee = getEmployee;
+// get setting
+const getSetting = async (req, res) => {
+    try {
+        const [row] = await database_1.pool.query(`SELECT * FROM setting WHERE id = ?`, ["1"]);
+        if (row && row.length > 0) {
+            return res.status(200).json(row);
+        }
+        else {
+            return [];
+        }
+    }
+    catch (error) {
+        return res.status(400).json({ message: error.message });
+    }
+};
+exports.getSetting = getSetting;

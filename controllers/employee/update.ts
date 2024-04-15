@@ -260,9 +260,30 @@ const changeForgottenPassword = async (req: Request, res: Response) => {
   }
 };
 
+// update setting
+const updateSetting = async (req: Request, res: Response) => {
+  try {
+    const { contact, schedule } = req.body;
+
+    if (!contact || !schedule) {
+      return res.status(400).json({ message: "Field is required" });
+    }
+
+    await pool.query(
+      `UPDATE setting SET contact = ?, schedule = ? WHERE id = ?`,
+      [contact, schedule, "1"]
+    );
+
+    res.status(200).json({ message: "Updated successfully" });
+  } catch (error: any) {
+    return res.status(400).json({ message: error.message });
+  }
+};
+
 export {
   updateEmployee,
   updatePassword,
   updateAdminRole,
   changeForgottenPassword,
+  updateSetting,
 };

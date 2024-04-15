@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.changeForgottenPassword = exports.updateAdminRole = exports.updatePassword = exports.updateEmployee = void 0;
+exports.updateSetting = exports.changeForgottenPassword = exports.updateAdminRole = exports.updatePassword = exports.updateEmployee = void 0;
 const validator_1 = __importDefault(require("validator"));
 const retrieveEmployeeQuery_1 = require("./template/retrieveEmployeeQuery");
 const encryptPassword_1 = require("../../utils/encryptPassword");
@@ -203,3 +203,18 @@ const changeForgottenPassword = async (req, res) => {
     }
 };
 exports.changeForgottenPassword = changeForgottenPassword;
+// update setting
+const updateSetting = async (req, res) => {
+    try {
+        const { contact, schedule } = req.body;
+        if (!contact || !schedule) {
+            return res.status(400).json({ message: "Field is required" });
+        }
+        await database_1.pool.query(`UPDATE setting SET contact = ?, schedule = ? WHERE id = ?`, [contact, schedule, "1"]);
+        res.status(200).json({ message: "Updated successfully" });
+    }
+    catch (error) {
+        return res.status(400).json({ message: error.message });
+    }
+};
+exports.updateSetting = updateSetting;
